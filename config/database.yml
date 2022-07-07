@@ -1,0 +1,18 @@
+
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  pool: 5
+  database: rails_blog
+  username: postgres
+  password: balu1335
+  host: localhost
+  port: 5432
+development:
+  <<: *default
+  database: rails_blog_development
+
+production:
+  <<: *default
+  database: rails_blog_production
+
