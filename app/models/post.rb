@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# this is Post model
 class Post < ApplicationRecord
   extend FriendlyId
   validates :title, presence: true, length: { minimum: 5, maximum: 50 }

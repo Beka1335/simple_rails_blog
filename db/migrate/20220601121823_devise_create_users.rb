@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This migration is used to populate the `DeviseCreateUsers` column in the `users` table.
 class DeviseCreateUsers < ActiveRecord::Migration[7.0]
   def change
     create_table :users do |t|

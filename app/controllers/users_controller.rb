@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# This is the UsersController class
 class UsersController < ApplicationController
   before_action :set_user
   def profile

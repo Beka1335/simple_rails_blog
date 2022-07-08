@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# this is comment moddel
 class Comment < ApplicationRecord
   validates :body, presence: true
   belongs_to :post

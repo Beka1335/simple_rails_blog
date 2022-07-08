@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# this is AdminController
 class AdminController < ApplicationController
   def index; end
 
@@ -12,6 +13,6 @@ class AdminController < ApplicationController
   def users; end
 
   def show_post
-    @post = Post.includes(:user, comments: [:user, :rich_text_body]).find(params[:id])
+    @post = Post.includes(:user, comments: %i[user rich_text_body]).find(params[:id])
   end
 end

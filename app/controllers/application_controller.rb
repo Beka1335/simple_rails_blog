@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# this is ApplicationController
 class ApplicationController < ActionController::Base
   before_action :set_notifications, if: :current_user
   before_action :set_query
