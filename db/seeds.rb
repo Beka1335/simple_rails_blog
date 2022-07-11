@@ -10,12 +10,14 @@
 User.create(email: 'dean@example.com',
             password: 'password',
             password_confirmation: 'password',
-            name: 'Dean',
+            first_name: 'Dean',
+            last_name: 'Kirk',
             role: User.roles[:admin])
 User.create(email: 'john@doe.com',
             password: 'password',
             password_confirmation: 'password',
-            name: 'John Doe')
+            first_name: 'John',
+            last_name: 'Doe',)
 
 10.times do |x|
   post = Post.create(title: "Title #{x}",

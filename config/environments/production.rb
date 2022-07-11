@@ -15,14 +15,14 @@ Rails.application.configure do
 
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: 'no-reply@example.com'}
+  #config.action_mailer.default_options = {from: 'no-reply@example.com'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
-    domain: '4709a2f39b264a28ac87e8cc7246bcda.vfs.cloud9.eu-central-1.amazonaws.com',
+    domain: 'simple-rails-blog-demo.herokuapp.com',
     user_name: 'barishvili@unisens.ge',
-    password: 'ggpvjdfsrpoescwb',
+    password: 'gricuwxccxiexgph',
     authentication: 'plain',
     enable_starttls_auto: true
   }
