@@ -4,12 +4,17 @@
 
   <div id="posts">
     <% @posts.each do |post| %>
+    <div class="card">
       <%= render post %>
       <p>
         <%= link_to "Show this post", post %>
       </p>
+    </div>
     <% end %>
   </div>
 
   <%= link_to "New post", new_post_path %>
+  <%= will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
 </div>
+
+
