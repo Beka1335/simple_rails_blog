@@ -2,12 +2,31 @@
 
 # this is PostsController
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[show edit update destroy]
+  before_action :set_post, only: %i[show edit update destroy approve_post]
   before_action :authenticate_user!, except: %i[show index]
+  before_action :require_login
+
+
+  def unapprove_posts
+    @user = User.find_by(id: params[:user_id])
+    @q = Post.ransack(params[:q])
+    if current_user.role == 'admin'
+      @posts = @q.result(distinct: true).where(approve: false).paginate(page: params[:page], per_page: 2)
+    else
+      @posts = @q.result(distinct: true).where(user_id: params[:user_id]).where(approve: false).paginate(page: params[:page], per_page: 2)
+    end
+  end
+
+  def approve_post
+    @post.update(approve: true)
+    # mail = UsersMailer.approve_post(@post.user_id)
+    # mail.deliver_now
+    redirect_to @post
+  end
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.includes(:user, :rich_text_body).all.order(views: :desc).paginate(page: params[:page], per_page: 10)
+    @posts = Post.includes(:user, :rich_text_body).all.order(views: :desc).paginate(page: params[:page], per_page: 5)
   end
 
   # GET /posts/1 or /posts/1.json
@@ -88,4 +107,9 @@ class PostsController < ApplicationController
     notifications_to_mark_as_read = @post.notifications_as_post.where(recipient: current_user)
     notifications_to_mark_as_read.update_all(read_at: Time.zone.now)
   end
+
+  def require_login
+    redirect_to new_user_registration_path unless current_user
+  end
 end
+

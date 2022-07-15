@@ -1,11 +1,12 @@
-<div class="content">
-  <h1>New post</h1>
+<div class="content" >
+  <h1 class="text-center" >New post</h1>
 
   <%= render "form", post: @post %>
 
   <br>
 
-  <div>
-    <%= link_to "Back to posts", posts_path %>
+  <div style="text-align: center; margin-bottom: 0.5em;">
+    <%= link_to "Back to posts", posts_path, class: "btn btn-outline-primary" %>
   </div>
+
 </div>

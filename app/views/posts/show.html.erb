@@ -2,16 +2,26 @@
 <div class="container">
   <%= render @post %>
   <div>
-  <% if current_user == @post.user %>
-    <%= link_to "Edit this post", edit_post_path(@post) %> |
-    <%= link_to "Back to posts", posts_path %>
-    <%= button_to "Destroy this post", @post, method: :delete %>
+  <% if current_user == @post.user || current_user.admin? %>
+  <div class="container-sm">
+    <div class="row align-items-start" style="margin-bottom: 10px;">
+      <div class="col-md-auto">
+        <%= button_to t(:edit_this_post), edit_post_path(@post), :method => "get", class: "btn btn-outline-primary" %>
+      </div>
+      <div class="col-md-auto">
+        <%= button_to t(:back_to_posts), posts_path, :method => "get", class: "btn btn-outline-primary" %>
+      </div>
+      <div class="col-md-auto">
+        <%= button_to "Destroy this post", @post, method: :delete, class: "btn btn-outline-danger" %>
+      </div>
+    </div>
+  </div>
   <% else %>
-    <%= link_to "Back to posts", posts_path %>
+    <%= button_to t(:back_to_posts), posts_path, :method => "get", class: "btn btn-outline-primary" %>
   <% end %>
   </div>
 </div>
-<div class="container">
+<div class="container" style=" margin-bottom: 50px">
   <%= render 'comments/form', 
     post: @post, 
     comment: @post.comments.build,

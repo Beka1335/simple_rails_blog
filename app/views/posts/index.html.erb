@@ -1,20 +1,39 @@
-<p style="color: green"><%= notice %></p>
-<div class="container">
-  <h1>Posts</h1>
+<% if current_user.nil?%>
+  <%= render "form", post: @post %>
+<% else %>
 
-  <div id="posts">
-    <% @posts.each do |post| %>
-    <div class="card">
-      <%= render post %>
-      <p>
-        <%= link_to "Show this post", post %>
-      </p>
+    <p style="color: green"><%= notice %></p>
+  <div class="container">
+    <div id="posts">
+     <%= button_to t(:new_post), new_post_path, :method => "get", class: "btn btn-outline-primary" %>
+      <% @posts.each do |post| %>
+        <% if current_user == post.user || current_user.admin? || post.approve?%>
+          <div class="card" style="margin: 15px 0px;">
+            <div id="<%= dom_id post %>">
+              <div class="card-header" style="text-align: center; text-size: big; font-size: 1.875em; font-weight: bold; font-family: Montserrat Regular;">
+                <%= post.title %>
+              </div>
+              <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted" style="margin-left: 20px;">
+                  posted by <%= link_to post.user.full_name, user_path(post.user) %> 
+                  <%=pluralize(post.views,"view") %>
+                </h6>
+                <p class="card-text"><%= post.body.to_plain_text.truncate_words(100) %></p>
+                <p>
+                  <%= button_to t(:show_this_post), post, :method => "get", class: "btn btn-outline-primary" %>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% end%>
+      <% end %>
     </div>
-    <% end %>
+    
+     <%= button_to t(:new_post), new_post_path, :method => "get", class: "btn btn-outline-primary" %>
+    <div class="pagination justify-content-center">
+      <%= will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+    </div>
   </div>
-
-  <%= link_to "New post", new_post_path %>
-  <%= will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-</div>
+<% end %>
 
 

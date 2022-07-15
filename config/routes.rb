@@ -18,6 +18,11 @@ Rails.application.routes.draw do
   }
   get '/u/:id', to: 'users#profile', as: 'user'
 
+
+  get '/unapprove_posts/:user_id', to: 'posts#unapprove_posts', as: :unapprove_posts
+  post '/approve_post/:user_id/:id', to: 'posts#approve_post', as: :approve_post
+
+
   resources :posts do
     resources :comments
   end
@@ -26,5 +31,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root 'pages#home'
+  root 'posts#index'
 end

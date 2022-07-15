@@ -30,6 +30,8 @@ elapsed = Benchmark.measure do
     post = Post.new(title: "Title #{x}",
                     body: "Body #{x} Words go here Idk",
                     user: dean,
+                    approve: false,
+                    comments_count: 5,
                     category: category)
 
     5.times do |y|

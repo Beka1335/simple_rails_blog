@@ -1,5 +1,5 @@
 <div class="comment-<%= comment.id %> container"
-    style="border: 1px solid black; padding: 1em; margin: 1em;">
+    style="border: 1px solid #ced4da; padding: 1em; margin: 1em; border-radius: 0.5em;">
   <%= comment.user.full_name %><br />
   <% if (comment.updated_at - comment.created_at) > 1 %>
     <span>Edited <%= time_ago_in_words(comment.updated_at) %> ago</span>
@@ -8,7 +8,7 @@
   <% end %>
   <% if current_user == comment.user %>
     <div class="btn-group float-end">
-      <%= link_to "Edit", nil, remote: true, class:"btn btn-warning",
+      <%= link_to "Edit", nil, remote: true, class:"btn btn-outline-primary",
       data: {
         controller: "comments",
         action: "comments#toggleForm",
@@ -16,8 +16,8 @@
         comments_body_param: "comment-body-#{comment.id}",
         comments_edit_param: "edit-button-#{comment.id}"
       },
-      id: "edit-button-#{comment.id}" %>
-      <%= button_to "Delete", [post, comment], class:"btn btn-danger", method: :delete %>
+      id: "edit-button-#{comment.id}" %>&nbsp &nbsp
+      <%= button_to "Delete", [post, comment], class:"btn btn-outline-danger", method: :delete %>
     </div>
     <div id="edit-form-<%= comment.id%>" class="d-none">
       <%= render 'comments/form',
