@@ -21,7 +21,7 @@ Rails.application.configure do
     address: Rails.application.credentials[:address],
     port: Rails.application.credentials[:port],
     domain: 'simple-rails-blog-demo.herokuapp.com',
-    user_name: Rails.application.credentials[:email],
+    user_name: Rails.application.credentials[:user_name],
     password: Rails.application.credentials[:password],
     authentication: 'plain',
     enable_starttls_auto: true
