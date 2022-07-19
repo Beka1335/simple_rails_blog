@@ -83,8 +83,10 @@ gem 'friendly_id', '~> 5.4'
 
 gem 'bullet', '~> 7.0'
 
-gem "activerecord-import", "~> 1.4"
+gem 'activerecord-import', "~> 1.4"
 
 gem 'will_paginate', '~> 3.3'
 
 gem 'will_paginate-bootstrap-style'
+
+gem 'carrierwave', '~> 2.0'

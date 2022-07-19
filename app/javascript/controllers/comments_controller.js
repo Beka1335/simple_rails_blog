@@ -32,7 +32,7 @@ export default class extends Controller {
   }
 
   toggleEditButtonClass(editButton) {
-    editButton.classList.toggle("btn-secondary");
-    editButton.classList.toggle("btn-warning");
+    editButton.classList.toggle("btn btn-outline-primary");
+    editButton.classList.toggle("btn btn-outline-warning");
   }
 }

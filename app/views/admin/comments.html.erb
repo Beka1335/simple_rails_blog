@@ -1,4 +1,24 @@
 <div class="container">
   <h1 class="text-center">Adminstrator</h1>
   <%= render 'admin/nav_links' %>
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">User</th>
+        <th scope="col">Post</th>
+        <th scope="col">Comment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @comments.each do |comment| %>
+        <tr>
+          <th scope="row"><%= comment.id %></th>
+          <td><%= comment.user.full_name%></td>
+          <td><%= link_to comment.post.title  %></td>
+          <td><%= comment.body.to_plain_text %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

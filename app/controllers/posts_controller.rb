@@ -6,22 +6,26 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
   before_action :require_login
 
+  # def unapprove_posts
+  #   @user = User.find_by(id: params[:user_id])
+  #   @q = Post.ransack(params[:q])
+  #   test(@q)
+  # end
 
-  def unapprove_posts
-    @user = User.find_by(id: params[:user_id])
-    @q = Post.ransack(params[:q])
-    if current_user.role == 'admin'
-      @posts = @q.result(distinct: true).where(approve: false).paginate(page: params[:page], per_page: 2)
-    else
-      @posts = @q.result(distinct: true).where(user_id: params[:user_id]).where(approve: false).paginate(page: params[:page], per_page: 2)
-    end
-  end
+  # def test(argument)
+  #   @posts = if current_user.role == 'admin'
+  #              argument.result(distinct: true).where(approve: false).paginate(page: params[:page], per_page: 2)
+  #            else
+  #              tt = argument.t.result(distinct: true).where(user_id: params[:user_id])
+  #              tt.where(approve: false).paginate(page: params[:page], per_page: 2)
+  #            end
+  # end
 
   def approve_post
     @post.update(approve: true)
     # mail = UsersMailer.approve_post(@post.user_id)
     # mail.deliver_now
-    redirect_to @post
+    redirect_to admin_posts_path
   end
 
   # GET /posts or /posts.json
@@ -31,7 +35,7 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
-    @post.update(views: @post.views + 1)
+    viewer_counter(@post, @post.user)
     @comments = @post.comments.includes(:user, :rich_text_body).order(created_at: :desc)
 
     mark_notifications_as_read
@@ -112,4 +116,3 @@ class PostsController < ApplicationController
     redirect_to new_user_registration_path unless current_user
   end
 end
-

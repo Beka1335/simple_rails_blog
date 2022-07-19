@@ -7,7 +7,18 @@ Rails.application.routes.draw do
     get 'admin/posts'
     get 'admin/comments'
     get 'admin/users'
+    get 'admin/categories'
     get 'admin/post/:id', to: 'admin#show_post', as: 'admin_post'
+    get 'admin/user/:id', to: 'admin#show_user', as: 'admin_user'
+    get 'admin/destroy/:id' => 'admin#destroy', :via => :delete, :as => :admin_destroy_user
+
+    # resources :posts, only: [:index, :show]
+    get '/unapprove_posts/:user_id', to: 'posts#unapprove_posts', as: :unapprove_posts
+    post '/approve_post/:user_id/:id', to: 'posts#approve_post', as: :approve_post
+
+    # user_role_path(:user_id, :role)
+    post '/user_role_admin/:user_id/:id', to: 'users#user_role_admin', as: :user_role_admin
+    post '/user_role_user/:user_id/:id', to: 'users#user_role_user', as: :user_role_user
   end
 
   get 'search', to: 'search#index'
@@ -18,9 +29,6 @@ Rails.application.routes.draw do
   }
   get '/u/:id', to: 'users#profile', as: 'user'
 
-
-  get '/unapprove_posts/:user_id', to: 'posts#unapprove_posts', as: :unapprove_posts
-  post '/approve_post/:user_id/:id', to: 'posts#approve_post', as: :approve_post
 
 
   resources :posts do

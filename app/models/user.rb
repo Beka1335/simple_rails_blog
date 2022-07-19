@@ -9,7 +9,8 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
 
-  has_one_attached :avatar
+  # has_one_attached :avatar
+  mount_uploader :avatar, AvatarUploader
 
   enum role: %i[user admin]
   after_initialize :set_default_role, if: :new_record?

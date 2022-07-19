@@ -8,7 +8,7 @@
   <% end %>
   <% if current_user == comment.user %>
     <div class="btn-group float-end">
-      <%= link_to "Edit", nil, remote: true, class:"btn btn-outline-primary",
+      <%= button_to "Edit", nil, remote: true, :method => "get" , class:"btn btn-outline-primary", style: "corner-radius:5px;",
       data: {
         controller: "comments",
         action: "comments#toggleForm",
@@ -17,7 +17,7 @@
         comments_edit_param: "edit-button-#{comment.id}"
       },
       id: "edit-button-#{comment.id}" %>&nbsp &nbsp
-      <%= button_to "Delete", [post, comment], class:"btn btn-outline-danger", method: :delete %>
+      <%= button_to "Delete", [post, comment], class:"btn btn-outline-danger", method: :delete  %>
     </div>
     <div id="edit-form-<%= comment.id%>" class="d-none">
       <%= render 'comments/form',
