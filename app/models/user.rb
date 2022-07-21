@@ -12,7 +12,7 @@ class User < ApplicationRecord
   # has_one_attached :avatar
   mount_uploader :avatar, AvatarUploader
 
-  enum role: %i[user admin]
+  enum role: %i[user admin vip]
   after_initialize :set_default_role, if: :new_record?
 
   def full_name

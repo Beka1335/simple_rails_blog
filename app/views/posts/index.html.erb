@@ -15,7 +15,7 @@
       <% end %>
     </div>
     
-     <%= button_to t(:new_post), new_post_path, :method => "get", class: "btn btn-outline-primary"  %>
+     <%= button_to t(:new_post), new_post_path, :method => "get", class: "btn btn-outline-primary"   %>
     <div class="pagination justify-content-center">
       <%= will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
     </div>

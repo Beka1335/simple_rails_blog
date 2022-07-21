@@ -6,8 +6,4 @@
   <% category.posts.includes(:user, :rich_text_body).each do |post| %>
     <%= render 'posts/posts_for_lists', post: post %>
   <% end %>
-
-  <div class="pagination justify-content-center">
-    <%= will_paginate @categories, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
-  </div>
 </div>

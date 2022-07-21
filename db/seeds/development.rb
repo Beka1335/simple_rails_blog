@@ -19,9 +19,6 @@ john = User.first_or_create!(email: 'john@doe.com',
                              first_name: 'John',
                              last_name: 'Doe')
 category = Category.first_or_create!(name:"Uncategorized", display_in_nav: true)
-Category.first_or_create!(name:"Cars", display_in_nav: false)
-Category.first_or_create!(name:"Bikes", display_in_nav: true)
-Category.first_or_create!(name:"Boats", display_in_nav: true)
 
 elapsed = Benchmark.measure do
   posts = []
