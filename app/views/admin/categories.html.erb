@@ -6,6 +6,7 @@
       <tr>
         <th scope="col">Id</th>
         <th scope="col">Categories</th>
+        <th scope="col">Posts</th>
       </tr>
     </thead>
     <tbody>
@@ -13,6 +14,7 @@
         <tr>
           <th scope="row"><%= category.id %></th>
           <td><%= link_to category.name, edit_category_path(category) %></td>
+          <td><%= category.posts.count %></td>
         </tr>
       <% end %>
     </tbody>
