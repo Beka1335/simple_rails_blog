@@ -2,7 +2,7 @@
 <div class="container">
   <%= render @post %>
   <div>
-  <% if current_user == @post.user || current_user.admin? %>
+  <% if current_user == @post.user %>
   <div class="container-sm">
     <div class="row align-items-start" style="margin-bottom: 10px;">
       <div class="col-md-auto">

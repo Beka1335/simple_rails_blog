@@ -6,20 +6,10 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
   before_action :require_login
 
-  # def unapprove_posts
-  #   @user = User.find_by(id: params[:user_id])
-  #   @q = Post.ransack(params[:q])
-  #   test(@q)
-  # end
-
-  # def test(argument)
-  #   @posts = if current_user.role == 'admin'
-  #              argument.result(distinct: true).where(approve: false).paginate(page: params[:page], per_page: 2)
-  #            else
-  #              tt = argument.t.result(distinct: true).where(user_id: params[:user_id])
-  #              tt.where(approve: false).paginate(page: params[:page], per_page: 2)
-  #            end
-  # end
+  def unapprove_post
+    @post.update(approve: false)
+    redirect_to admin_posts_path
+  end
 
   def approve_post
     @post.update(approve: true)
@@ -30,7 +20,11 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.includes(:user, :rich_text_body).all.order(views: :desc).paginate(page: params[:page], per_page: 5)
+    if current_user.subscribed?
+      @posts = Post.includes(:user, :rich_text_body).where(approve: true).order(views: :desc).paginate(page: params[:page], per_page: 5)
+    else
+      @posts = Post.includes(:user, :rich_text_body).where(approve: true, premium: false).order(views: :desc).paginate(page: params[:page], per_page: 5)
+    end
   end
 
   # GET /posts/1 or /posts/1.json
@@ -102,7 +96,7 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :body, :category_id)
+    params.require(:post).permit(:title, :body, :category_id, :premium)
   end
 
   def mark_notifications_as_read

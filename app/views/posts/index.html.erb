@@ -1,24 +1,21 @@
 <% if current_user.nil?%>
   <%= render "form", post: @post %>
-<% else %>
+  <%else%>
   <div class="container">
     <div id="posts">
-     <%= button_to t(:new_post), new_post_path, :method => "get", class: "btn btn-outline-primary" %>
+      <%= button_to t(:new_post), new_post_path, :method => "get", class: "btn btn-outline-primary" %>
       <% @posts.each do |post| %>
-        <% if current_user == post.user || current_user.admin? || post.approve?%>
           <div class="card" style="margin: 15px 0px;">
             <div id="<%= dom_id post %>">
               <%= render 'posts/posts_for_lists', post: post %>
             </div>
           </div>
-        <% end%>
       <% end %>
     </div>
+      
     
-     <%= button_to t(:new_post), new_post_path, :method => "get", class: "btn btn-outline-primary"   %>
     <div class="pagination justify-content-center">
       <%= will_paginate @posts, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
     </div>
   </div>
-<% end %>
-
+<%end%>

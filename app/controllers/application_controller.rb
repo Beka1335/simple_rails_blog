@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :set_notifications, if: :current_user
   before_action :set_categories
   before_action :set_query
+  before_action :set_stripe_key
 
   def viewer_counter(test, test1 = nil)
     if current_user == test || current_user == test1
@@ -23,6 +24,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_stripe_key
+    Stripe.api_key = Rails.application.credentials.dig(:stripe, :secret_key)
+  end
 
   def set_categories
     @nav_categories = Category.where(display_in_nav: true).order(:name)

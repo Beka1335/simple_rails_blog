@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_21_114614) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_26_060004) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -101,16 +101,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_114614) do
     t.integer "comments_count"
     t.bigint "category_id", null: false
     t.boolean "approve", default: false, null: false
+    t.boolean "premium"
     t.index ["category_id"], name: "index_posts_on_category_id"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.integer "price"
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "plan_id"
+    t.string "customer_id"
+    t.bigint "user_id", null: false
+    t.string "status"
+    t.string "interval"
+    t.string "subscription_id"
+    t.datetime "current_period_start"
+    t.datetime "current_period_end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -130,6 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_114614) do
     t.string "first_name"
     t.string "last_name"
     t.string "avatar"
+    t.string "stripe_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -141,4 +150,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_114614) do
   add_foreign_key "comments", "users"
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users"
+  add_foreign_key "subscriptions", "users"
 end
