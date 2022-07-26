@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
   # has_one_attached :avatar
   mount_uploader :avatar, AvatarUploader
@@ -17,6 +18,10 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name.capitalize} #{last_name.capitalize}"
+  end
+
+  def subscribed?
+    subscriptions.where(status: 'active').any?
   end
 
   private

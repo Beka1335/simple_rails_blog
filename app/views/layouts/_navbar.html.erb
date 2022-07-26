@@ -13,6 +13,9 @@
         <li class="nav-item">
           <%= render 'layouts/categories', categories: @nav_categories %>
         </li>
+        <li class="nav-item">
+          <%= link_to "ViP", pricing_path, class:"nav-link"  %>
+        </li>
       </ul>
       <ul class="navbar-nav">
         <%= render 'search/form' %>

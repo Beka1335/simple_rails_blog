@@ -2,7 +2,11 @@
   <div class="row">
     <div class="col-md-3 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-          <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+          <%if @user.avatar_url.nil?%>
+            <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+          <% else %>
+            <%= image_tag @user.avatar_url,style:"width:150px; height: 150px; border-radius:100%"  %>
+          <% end %>          
           <span class="font-weight-bold">Edogaru</span>
           <span class="text-black-50">edogaru@mail.com.my</span>
           <span> </span>
@@ -65,6 +69,12 @@
 
           <div class="actions">
             <%= f.submit "Update", class: "btn btn-outline-primary" %>
+          </div>
+        <% end %>
+
+        <% if current_user.subscribed? %>
+          <div>
+            <%= button_to "Manage billing", billings_path, data: { turbo: false }, class: 'btn btn-outline-primary' %>
           </div>
         <% end %>
 

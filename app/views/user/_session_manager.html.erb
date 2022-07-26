@@ -4,7 +4,8 @@
       <%= current_user.full_name %>
     </a>
     <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
-    <li><%= link_to "Profile", user_path(current_user), class:"dropdown-item" %></li>
+      <li><%= link_to "Profile", user_path(current_user), class:"dropdown-item" %></li>
+      <li><%= link_to "Uneproved Posts", user_uneproved_posts_path(current_user), class:"dropdown-item" %></li>
       <li><%= link_to "Admin", admin_path, class:"dropdown-item" if current_user.admin? %></li>
       <li><%= link_to "New Category", new_category_path, class:"dropdown-item" if current_user.admin? %></li>
       <li><%= link_to "New Post", new_post_path, class:"dropdown-item" %></li>
