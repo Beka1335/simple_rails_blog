@@ -15,6 +15,11 @@
     </div>
     <div>
       <div  style="text-align: center; margin: 10px">
+      <%if !post.premium?%>
+        <%= form.label :premium, style: "display: block" %>
+        <%= form.check_box :premium %>
+      <% end %>
+
         <%= form.label :category, style: "display: block" %>
         <%= form.select :category_id, options_for_select(Category.all.order(name: :asc)
             .collect { |cat| [cat.name, cat.id] }) %>

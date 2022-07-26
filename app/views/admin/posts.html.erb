@@ -9,6 +9,7 @@
         <th scope="col">Author</th>
         <th scope="col">Comments</th>
         <th scope="col">Status</th>
+        <th scope="col">Premium</th>
       </tr>
     </thead>
     <tbody>
@@ -18,7 +19,8 @@
           <td><%= link_to post.title.truncate(15), admin_post_path(post) %></td>
           <td><%= post.user.full_name %></td>
           <td><%= pluralize(post.comments.size, "Comment") %></td>
-          <td><%= post.approve  %>
+          <td><%= post.approve %></td>
+          <td><%= post.premium %></td>
         </tr>
       <% end %>
     </tbody>
