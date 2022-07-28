@@ -14,6 +14,14 @@
       <div class="col-md-auto">
         <%= button_to "Destroy this post", @post, method: :delete, class: "btn btn-outline-danger" %>
       </div>
+<!--    <% if current_user %>
+          <% pre_like = @post.likes.find { |like| like.user_id == current_user.id} %>
+          <% if pre_like %>
+            <%= button_to 'Unlike', post_like_path(@post.id, pre_like), method: :delete, class: 'btn btn-secondary' %>
+          <% else %>
+            <%= button_to 'Like', post_likes_path(@post.id), method: :post, class: 'btn btn-success' %>
+          <% end %>
+        <% end %>-->
     </div>
   </div>
   <% else %>

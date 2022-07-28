@@ -10,10 +10,13 @@ class User < ApplicationRecord
   has_many :notifications, as: :recipient, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
   # has_one_attached :avatar
   mount_uploader :avatar, AvatarUploader
 
-  enum role: %i[user admin vip]
+  enum role: %i[user admin]
   after_initialize :set_default_role, if: :new_record?
 
   def full_name

@@ -2,7 +2,7 @@
 
 # this is PostsController
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[show edit update destroy approve_post]
+  before_action :set_post, only: %i[show edit update destroy approve_post unapprove_post]
   before_action :authenticate_user!, except: %i[show index]
   before_action :require_login
 

@@ -2,6 +2,7 @@
 
 # this is the base controller for all controllers
 class ApplicationController < ActionController::Base
+  protect_from_forgery with: :null_session
   before_action :set_notifications, if: :current_user
   before_action :set_categories
   before_action :set_query

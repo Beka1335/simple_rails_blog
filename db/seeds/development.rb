@@ -1,26 +1,16 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+require 'faker'
+
 puts 'Seeding development database...'
-dean = User.first_or_create!(email: 'dean@example.com',
-                             password: 'password',
-                             password_confirmation: 'password',
-                             first_name: 'Dean',
-                             last_name: 'DeHart',
-                             role: User.roles[:admin])
+class BlogFiller
+  dean = User.first_or_create!(email: 'dean@example.com',
+                              password: 'password',
+                              password_confirmation: 'password',
+                              first_name: 'Dean',
+                              last_name: 'DeHart',
+                              role: User.roles[:admin])
+                              
+  category = Category.first_or_create!(name:"Uncategorized", display_in_nav: true)
 
-john = User.first_or_create!(email: 'john@doe.com',
-                             password: 'password',
-                             password_confirmation: 'password',
-                             first_name: 'John',
-                             last_name: 'Doe')
-category = Category.first_or_create!(name:"Uncategorized", display_in_nav: true)
-
-elapsed = Benchmark.measure do
   posts = []
   10.times do |x|
     puts "Creating post #{x}"
@@ -34,11 +24,57 @@ elapsed = Benchmark.measure do
     5.times do |y|
       puts "Creating comment #{y} for post #{x}"
       post.comments.build(body: "Comment #{y}",
-                          user: john)
+                          user: dean)
     end
     posts.push(post)
   end
   Post.import(posts, recursive: true)
+
+  def create_users
+    password =  Faker::Internet.password(min_length: 6)
+    20.times do
+      User.create({
+        first_name: Faker::Name.name,
+        last_name: Faker::Name.last_name,
+        email: Faker::Internet.unique.email,
+        password: password,
+        password_confirmation: password
+      })
+    end
+  end
+
+  def create_posts
+    user_start = User.last.id - 20
+    50.times do
+      Post.create({
+        title: Faker::Movie.title,
+        body: Faker::Movie.quote,
+        user_id: Faker::Number.within(range: user_start..(user_start + 20)),
+        views: Faker::Number.within(range: 0..1000),
+        approve: Faker::Boolean.boolean,
+        category_id: Category.first.id
+      })
+    end
+  end
+
+  def create_comments
+    user_start = User.last.id - 20
+    post_start = Post.last.id - 50
+    100.times do
+      user = User.find_by(id: Faker::Number.within(range: user_start..(user_start + 20)))
+      Comment.create({
+        body: Faker::Movie.quote,
+        post_id: Faker::Number.within(range: post_start..(post_start + 50)),
+        user_id: user.id
+      }) if user
+    end
+  end
+
 end
 
-puts "Seeded development DB in #{elapsed.real} seconds"
+blog_filler = BlogFiller.new()
+
+blog_filler.create_users
+blog_filler.create_posts
+blog_filler.create_comments
+

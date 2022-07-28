@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# this is AdminController
 class AdminController < ApplicationController
   def index; end
 
