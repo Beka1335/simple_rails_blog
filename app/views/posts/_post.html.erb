@@ -8,6 +8,7 @@
       <%=pluralize(post.views,"view") %>
     </h6>
     <p class="card-text"><%= post.body %></p>
+    <p><%= @post.likes.count %> <%= (@post.likes.count) == 1 ? 'Like' : 'Likes'%></p> 
 
   </div>
 </div>

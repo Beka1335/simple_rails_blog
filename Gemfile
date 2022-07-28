@@ -73,7 +73,7 @@ group :test do
   gem 'webdrivers'
 end
 
-gem 'devise'
+gem 'devise', git: 'https://github.com/heartcombo/devise.git'
 
 gem 'noticed', '~> 1.5'
 
@@ -92,3 +92,5 @@ gem 'will_paginate-bootstrap-style'
 gem 'carrierwave', '~> 2.0'
 
 gem 'stripe'
+
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
