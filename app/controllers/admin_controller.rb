@@ -2,11 +2,16 @@ class AdminController < ApplicationController
   def index; end
 
   def posts
+
     @posts = Post.all.includes(:user)
+    @t = Post.includes(:user).ransack(params[:q])
+    @posts = @t.result.page(params[:page]).per_page(15)
   end
 
   def comments
     @comments = Comment.all.includes(:user, :post, :rich_text_body)
+    @t = Comment.includes(:user, :post, :rich_text_body).ransack(params[:q])
+    @comments = @t.result.page(params[:page]).per_page(15)
   end
 
   def categories
@@ -15,6 +20,8 @@ class AdminController < ApplicationController
 
   def users
     @use = User.all
+    @t = User.ransack(params[:q])
+    @use = @t.result.page(params[:page]).per_page(15)
   end
 
   def show_post

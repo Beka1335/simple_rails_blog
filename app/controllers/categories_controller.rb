@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# this is CategoriesController
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show edit update destroy]
   # before_action :require_login
@@ -8,11 +5,19 @@ class CategoriesController < ApplicationController
 
   # GET /categories or /categories.json
   def index
-    @categories = Category.all.paginate(page: params[:page], per_page: 5)
+    @categories = Category.all
   end
 
   # GET /categories/1 or /categories/1.json
-  def show; end
+  def show
+    if current_user.nil?
+      @category_posts = @category.posts.where(approve: true, premium: false).includes(:user, :rich_text_body).paginate(page: params[:page],per_page: 5)
+    elsif current_user.subscribed?
+      @category_posts = @category.posts.where(approve: true).includes(:user, :rich_text_body)..order(views: :desc).paginate(page: params[:page], per_page: 5)
+    else
+      @category_posts = @category.posts.where(approve: true, premium: false).includes(:user, :rich_text_body).paginate(page: params[:page],per_page: 5)
+    end
+  end
 
   # GET /categories/new
   def new
@@ -25,7 +30,6 @@ class CategoriesController < ApplicationController
   # POST /categories or /categories.json
   def create
     @category = Category.new(category_params)
-
     respond_to do |format|
       if @category.save
         format.html { redirect_to category_url(@category), notice: 'Category was successfully created.' }

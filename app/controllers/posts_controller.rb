@@ -4,7 +4,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy approve_post unapprove_post]
   before_action :authenticate_user!, except: %i[show index]
-  before_action :require_login
+  #before_action :require_login
 
   def unapprove_post
     @post.update(approve: false)
@@ -20,11 +20,14 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    if current_user.subscribed?
+    if current_user.nil?
+      @posts = Post.includes(:user, :rich_text_body).where(approve: true, premium: false).order(views: :desc).paginate(page: params[:page], per_page: 5)
+    elsif current_user.subscribed?
       @posts = Post.includes(:user, :rich_text_body).where(approve: true).order(views: :desc).paginate(page: params[:page], per_page: 5)
     else
       @posts = Post.includes(:user, :rich_text_body).where(approve: true, premium: false).order(views: :desc).paginate(page: params[:page], per_page: 5)
     end
+
   end
 
   # GET /posts/1 or /posts/1.json

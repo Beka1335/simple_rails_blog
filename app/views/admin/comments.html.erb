@@ -19,6 +19,7 @@
           <td><%= comment.body.to_plain_text %></td>
         </tr>
       <% end %>
+      <%= will_paginate @comments, list_classes: %w(pagination justify-content-end) %>
     </tbody>
   </table>
 </div>

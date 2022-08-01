@@ -5,10 +5,10 @@
     <thead>
       <tr>
         <th scope="col">Id</th>
-        <th scope="col">Post</th>
-        <th scope="col">Author</th>
+        <th><%= sort_link(@t, :title,"Title") %></th>
+        <th><%= sort_link(@query, :user_first_name, "Users")%></th>
         <th scope="col">Comments</th>
-        <th scope="col">Status</th>
+        <th><%= sort_link(@t, :approve, "Status")%></th>
         <th scope="col">Premium</th>
       </tr>
     </thead>
@@ -23,6 +23,7 @@
           <td><%= post.premium %></td>
         </tr>
       <% end %>
+      <%= will_paginate @posts, list_classes: %w(pagination justify-content-end) %>
     </tbody>
   </table>
 </div>
