@@ -1,21 +1,26 @@
 <div class="container">
   <p style="color: green"><%= notice %></p>
-
   <h1 class="text-center">Categories</h1>
-
   <div id="categories">
-    <% @categories.each do |category| %>
-      <%= render category %>
-      <p>
-        <%= link_to "Show this category", category %>
-      </p>
-    <% end %>
-  </div>
-
-  <%= link_to "New category", new_category_path %>
-
-  <div class="pagination justify-content-center">
-    <%= will_paginate @categories, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+    <div id="categories">
+      <% @categories.each do |category| %>
+        <%= link_to category.name, category_path(category), class:"btn btn-outline-primary"%>
+      <% end %>
+    </div>&nbsp;
   </div>
 
 </div>
+
+<style>
+  .container {
+      border-radius: 15px;
+      margin-top: 5%;
+  }
+
+  h4 {
+      text-align: center;
+  }
+  #categories {
+      text-align: center;
+  }
+</style>

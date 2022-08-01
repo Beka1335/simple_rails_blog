@@ -6,7 +6,7 @@
   <% else %>
     <span>Posted <%= time_ago_in_words(comment.created_at) %> ago</span>
   <% end %>
-  <% if current_user == comment.user || current_user.admin!%>
+  <% if current_user == comment.user %>
     <div class="btn-group float-end">
       <%= button_to "Edit", nil, remote: true, :method => "get" , class:"btn btn-outline-primary", style: "corner-radius:5px;",
       data: {

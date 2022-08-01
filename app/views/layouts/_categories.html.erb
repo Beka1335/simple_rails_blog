@@ -3,18 +3,10 @@
     Categories
   </a>
   <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
-    <%if user_signed_in?%>
-      <% categories.each do |cat| %>
-        <li><%= link_to cat.name, cat, class:"dropdown-item" %></li>
-      <% end %>
-      <li><hr class="dropdown-divider"></li>
-      <li><%= link_to "More", categories_path, class:"dropdown-item" %></li>
-    <%else%>
-      <% categories.each do |cat| %>
-        <li><%= link_to cat.name, new_user_session_path, class:"dropdown-item" %></li>
-      <% end %>
-      <li><hr class="dropdown-divider"></li>
-      <li><%= link_to "More", new_user_session_path, class:"dropdown-item" %></li>
-    <%end%>
+    <% categories.each do |cat| %>
+      <li><%= link_to cat.name, cat, class:"dropdown-item" %></li>
+    <% end %>
+        <li><hr class="dropdown-divider"></li>
+    <li><%= link_to "More", categories_path, class:"dropdown-item"%></li>
   </ul>
 </li>
