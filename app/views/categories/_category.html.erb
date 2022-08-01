@@ -3,7 +3,11 @@
     <% target = action_name.eql?("show") ? categories_path : category %>
     <%= link_to category.name.capitalize, target%>
   </h2>
-  <% category.posts.includes(:user, :rich_text_body).each do |post| %>
+  <% @category_posts.each do |post| %>
     <%= render 'posts/posts_for_lists', post: post %>
   <% end %>
+
+  <div class="pagination justify-content-center" style="color: orange">
+    <%= will_paginate @category_posts, list_classes: %w(pagination justify-content-end) %>
+  </div>
 </div>

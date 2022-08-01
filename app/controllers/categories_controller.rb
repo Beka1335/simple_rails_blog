@@ -9,7 +9,15 @@ class CategoriesController < ApplicationController
   end
 
   # GET /categories/1 or /categories/1.json
-  def show; end
+  def show
+    if current_user.nil?
+      @category_posts = @category.posts.where(approve: true, premium: false).includes(:user, :rich_text_body).paginate(page: params[:page],per_page: 5)
+    elsif current_user.subscribed?
+      @category_posts = @category.posts.where(approve: true).includes(:user, :rich_text_body)..order(views: :desc).paginate(page: params[:page], per_page: 5)
+    else
+      @category_posts = @category.posts.where(approve: true, premium: false).includes(:user, :rich_text_body).paginate(page: params[:page],per_page: 5)
+    end
+  end
 
   # GET /categories/new
   def new
