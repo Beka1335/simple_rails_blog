@@ -94,3 +94,7 @@ gem 'carrierwave', '~> 2.0'
 gem 'stripe'
 
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+
+gem 'geocoder', '~> 1.8'
+
+gem 'telephone_number'
