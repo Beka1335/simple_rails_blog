@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :notifications, as: :recipient, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
   has_many :locations, dependent: :destroy
+  has_many :mobiles, dependent: :destroy
 
   validates :first_name, presence: true
   validates :last_name, presence: true

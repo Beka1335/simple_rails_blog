@@ -21,19 +21,6 @@ Rails.application.configure do
     port: 1025
   }
 
-  # config.action_mailer.perform_deliveries = true
-  # config.action_mailer.raise_delivery_errors = true
-  # #config.action_mailer.default_options = {from: 'no-reply@example.com'}
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = {
-  #   address: 'smtp.gmail.com',
-  #   port: 587,
-  #   domain: 'simple-rails-blog-demo.herokuapp.com',
-  #   user_name: 'barishvili@unisens.ge',
-  #   password: 'gricuwxccxiexgph',
-  #   authentication: 'plain',
-  #   enable_starttls_auto: true
-  # }
 
   # Settings specified here will take precedence over those in config/application.rb.
 

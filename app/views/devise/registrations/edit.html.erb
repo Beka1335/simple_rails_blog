@@ -69,9 +69,18 @@
           <div style="margin-top: 10px;">
             <%= link_to "add address", add_location_path(current_user), class: 'btn btn-outline-primary' %>
           </div>
+          
 
           <div style="margin-top: 10px;">
+            <% if @user.locations.size > 1 %>
+              <h6>Addresses: </h6>
+            <% else %>
+              <h6>Address: </h6>
+            <% end %>
+            <ul style="list-style-type:disc">
             <% @user.locations.each do |location| %>
+            <br/>
+             <li>
                 <%=  link_to location.address, nil, remote: true, data: {
                   controller: "locations",
                   action: "locations#initMap",
@@ -79,11 +88,32 @@
                   locations_longitude_param: "#{location.longitude}"
                 }  %>
                 <!-- delete address button-->
-                <%= link_to "delete", destroy_address_path(current_user,location), method: :delete, class: 'btn btn-outline-danger' %>
+                <%= link_to "Delete", destroy_address_path(current_user,location), method: :delete, class: 'btn btn-outline-danger', style: 'float: right;' %>
                 <br />
+              </li>
             <% end %>
+            </ul>
 
-            <div id="map" class="d-none"></div><br />
+            <div id="map" class="d-none"></div><br/>
+          </div>
+
+          <%= link_to 'Add Number', users_mobile_phone_path, class: 'btn btn-outline-primary' %>
+
+          <div style="margin-top: 10px;">
+            <% if @user.mobiles.size > 1 %>
+              <h6>Mobile Number: </h6>
+            <% else %>
+              <h6>Mobile Numbers: </h6>
+            <% end %>
+            <ul class="list-inside space-y-2">
+              <% @user.mobiles.each do |mobile| %>
+              <br />
+                <li>
+                  <%= mobile.number %>
+                  <%= link_to 'Delete', destroy_mobile_path(current_user,mobile), method: :delete, class: 'btn btn-outline-danger', style: 'float: right;' %>
+                </li> 
+              <% end %>
+            </ul>
           </div>
 
           <br />
