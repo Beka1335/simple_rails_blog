@@ -1,10 +1,39 @@
-<div class="container">
-	<%= form_with model: @location, url: create_location_path do |form| %>
-	
-	<%= form.text_field :street, placeholder: "street", class: "form-control" %>
-	<%= form.text_field :city, placeholder: "city", class: "form-control" %>
-	<%= form.text_field :state, placeholder: "state", class: "form-control" %>
-	<%= form.text_field :country, placeholder: "country", class: "form-control" %>
-	<%= form.submit "add", class: "btn btn-primary" %>
-<% end %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<div class="container text-center">
+  <h3><i class="bi bi-geo-alt-fill fa-4x"></i></h3>
+  <h2 class="text-center">Resend confirmation instructions</h2><br />
+
+  <div class="panel-body">
+    <%= form_with model: @location, url: create_location_path do |form| %>
+      <div class="form-group">
+        <div class="form-outline mb-2">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+					<%= form.text_field :country, placeholder: "country", class: "form-control form-control-lg"  %>
+					<%= form.text_field :state, placeholder: "state", class: "form-control form-control-lg" %>
+					<%= form.text_field :city, placeholder: "city", class: "form-control form-control-lg" %>
+         	<%= form.text_field :street, placeholder: "street", class: "form-control form-control-lg" %>
+        </div>
+      </div><br />
+      <div class="form-group">
+        <%= form.submit "add", class: "btn btn-outline-primary"  %>
+      </div>
+    <% end %>
+  </div>
 </div>
+
+
+<style>
+    .form-gap {
+        padding-top: 70px;
+    }
+    .container{
+        background: rgba(230, 230, 230, 0.95);
+        padding: 3%;
+        margin-top: 5%;
+        max-width: 30%;
+        border-radius: 15px;
+    }
+	.form-control{
+		margin: 5px;
+	}
+</style>

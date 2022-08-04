@@ -1,16 +1,38 @@
-<h2>Resend confirmation instructions</h2>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<div class="container text-center">
+  <h3><i class="bi bi-envelope-exclamation-fill fa-4x"></i></h3>
+  <h2 class="text-center">Resend confirmation instructions</h2><br />
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+  <div class="panel-body">
+    <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="form-group">
+        <div class="form-outline mb-2">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+          <%= f.email_field :email, autofocus: true, autocomplete: t(:email),
+                            value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+                            class:"form-control", placeholder:"email"%>
+        </div>
+      </div><br />
+      <div class="form-group">
+        <%= f.submit "Resend confirmation instructions", class:"btn btn-outline-primary" %>
+      </div>
+      <input type="hidden" class="hide" name="token" id="token" value="">
+    <% end %><br />
+    <%= render "devise/shared/links" %>
   </div>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
-  </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+<style>
+    .form-gap {
+        padding-top: 70px;
+    }
+    .container{
+        background: rgba(230, 230, 230, 0.95);
+        padding: 3%;
+        margin-top: 5%;
+        max-width: 30%;
+        border-radius: 15px;
+    }
+</style>
