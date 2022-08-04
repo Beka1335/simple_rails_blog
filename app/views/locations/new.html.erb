@@ -1,0 +1,10 @@
+<div class="container">
+	<%= form_with model: @location, url: create_location_path do |form| %>
+	
+	<%= form.text_field :street, placeholder: "street", class: "form-control" %>
+	<%= form.text_field :city, placeholder: "city", class: "form-control" %>
+	<%= form.text_field :state, placeholder: "state", class: "form-control" %>
+	<%= form.text_field :country, placeholder: "country", class: "form-control" %>
+	<%= form.submit "add", class: "btn btn-primary" %>
+<% end %>
+</div>

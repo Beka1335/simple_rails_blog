@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     post '/user_role_admin/:user_id/:id', to: 'users#user_role_admin', as: :user_role_admin
     post '/user_role_user/:user_id/:id', to: 'users#user_role_user', as: :user_role_user
   end
-  
+
   resources :posts do
     resources :likes
   end
@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   }
   get '/u/:id', to: 'users#profile', as: 'user'
   get '/uneproved_posts/:id', to: 'users#uneproved_posts', as: 'user_uneproved_posts'
+  get '/approved_posts/:id', to: 'users#approved_posts', as: 'user_approved_posts'
 
   scope controller: :static do
     get :pricing
@@ -60,7 +61,13 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # Defines the root path route ('/')
+  # root 'articles#index'
   root 'posts#index'
+
+  get 'users/:user_id/locations/delete/:id', to: 'locations#destroy', via: :delete, as: :destroy_address
+  get 'users/locations/add', to: 'locations#new', as: :add_location
+  post 'users/locations/add', to: 'locations#create', as: :create_location
+  get '/users/:user_id/locations/all', to: 'locations#index', as: :locations
+  get '/users/locations/show/:id', to: 'locations#show', as: :show_location
 end
