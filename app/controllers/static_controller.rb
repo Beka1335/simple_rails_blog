@@ -1,4 +1,3 @@
 class StaticController < ApplicationController
-  def pricing
-  end
+  def pricing; end
 end

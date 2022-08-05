@@ -34,7 +34,8 @@ Rails.application.routes.draw do
   # end
   devise_for :users, controllers: {
     sessions: 'users/sessions',
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
   get '/u/:id', to: 'users#profile', as: 'user'
   get '/uneproved_posts/:id', to: 'users#uneproved_posts', as: 'user_uneproved_posts'
@@ -70,7 +71,6 @@ Rails.application.routes.draw do
   post 'users/locations/add', to: 'locations#create', as: :create_location
   get '/users/:user_id/locations/all', to: 'locations#index', as: :locations
   get '/users/locations/show/:id', to: 'locations#show', as: :show_location
-
 
   get 'users/mobile_phone', to: 'mobiles#new'
   post 'users/mobile_phone', to: 'mobiles#create'

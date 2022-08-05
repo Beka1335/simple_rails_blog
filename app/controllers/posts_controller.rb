@@ -1,10 +1,6 @@
-# frozen_string_literal: true
-
-# this is PostsController
 class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy approve_post unapprove_post]
   before_action :authenticate_user!, except: %i[show index]
-  #before_action :require_login
 
   def unapprove_post
     @post.update(approve: false)
@@ -18,19 +14,19 @@ class PostsController < ApplicationController
     redirect_to admin_posts_path
   end
 
-  # GET /posts or /posts.json
   def index
-    if current_user.nil?
-      @posts = Post.includes(:user, :rich_text_body).where(approve: true, premium: false).order(views: :desc).paginate(page: params[:page], per_page: 5)
-    elsif current_user.subscribed?
-      @posts = Post.includes(:user, :rich_text_body).where(approve: true).order(views: :desc).paginate(page: params[:page], per_page: 5)
-    else
-      @posts = Post.includes(:user, :rich_text_body).where(approve: true, premium: false).order(views: :desc).paginate(page: params[:page], per_page: 5)
-    end
-
+    @posts = if current_user.nil?
+               Post.includes(:user, :rich_text_body).where(approve: true, premium: false)
+                   .order(views: :desc).paginate(page: params[:page], per_page: 5)
+             elsif current_user.subscribed?
+               Post.includes(:user, :rich_text_body).where(approve: true)
+                   .order(views: :desc).paginate(page: params[:page], per_page: 5)
+             else
+               Post.includes(:user, :rich_text_body).where(approve: true, premium: false)
+                   .order(views: :desc).paginate(page: params[:page], per_page: 5)
+             end
   end
 
-  # GET /posts/1 or /posts/1.json
   def show
     viewer_counter(@post, @post.user)
     @comments = @post.comments.includes(:user, :rich_text_body).order(created_at: :desc)
@@ -38,15 +34,12 @@ class PostsController < ApplicationController
     mark_notifications_as_read
   end
 
-  # GET /posts/new
   def new
     @post = Post.new
   end
 
-  # GET /posts/1/edit
   def edit; end
 
-  # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
     @post.user = current_user
@@ -66,7 +59,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /posts/1 or /posts/1.json
   def update
     respond_to do |format|
       if @post.update(post_params)
@@ -79,7 +71,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # DELETE /posts/1 or /posts/1.json
   def destroy
     @post.destroy
 
@@ -91,13 +82,11 @@ class PostsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_post
     @post = Post.find(params[:id])
     redirect_to @post, status: :moved_permanently if params[:id] != @post.slug
   end
 
-  # Only allow a list of trusted parameters through.
   def post_params
     params.require(:post).permit(:title, :body, :category_id, :premium)
   end

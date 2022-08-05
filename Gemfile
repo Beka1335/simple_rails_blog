@@ -75,6 +75,11 @@ end
 
 gem 'devise', git: 'https://github.com/heartcombo/devise.git'
 
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
+gem "oauth2", "~> 1.4"
+
 gem 'noticed', '~> 1.5'
 
 gem 'ransack', '~> 3.2'
@@ -83,7 +88,7 @@ gem 'friendly_id', '~> 5.4'
 
 gem 'bullet', '~> 7.0'
 
-gem 'activerecord-import', "~> 1.4"
+gem 'activerecord-import', '~> 1.4'
 
 gem 'will_paginate', '~> 3.3'
 
@@ -93,7 +98,7 @@ gem 'carrierwave', '~> 2.0'
 
 gem 'stripe'
 
-gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 
 gem 'geocoder', '~> 1.8'
 

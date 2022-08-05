@@ -57,6 +57,9 @@ module Users
                                                                   current_password])
     end
 
+    def update_resource(resource, params)
+      resource.update_without_password(params)
+    end
     # The path used after sign up.
     # def after_sign_up_path_for(resource)
     #   super(resource)

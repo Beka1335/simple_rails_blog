@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class TurboFailureApp < Devise::FailureApp
   def respond
@@ -9,17 +10,19 @@ class TurboFailureApp < Devise::FailureApp
   end
 
   def skip_format?
-    %w(html turbo_stream */*).include? request_format.to_s
+    %w[html turbo_stream */*].include? request_format.to_s
   end
 end
 
 Devise.setup do |config|
-
   config.parent_controller = 'TurboDeviseController'
 
   config.navigational_formats = ['*/*', :html, :turbo_stream]
 
   config.mailer_sender = 'tester'
+  config.omniauth :google_oauth2,
+                                  Rails.application.credentials[:google_oauth_client_id],
+                                  Rails.application.credentials[:google_oauth_client_secret]
 
   require 'devise/orm/active_record'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Location < ApplicationRecord
   belongs_to :user
   geocoded_by :address
@@ -11,6 +13,6 @@ class Location < ApplicationRecord
   end
 
   def coordinates
-    [self.latitude, self.longitude]
+    [latitude, longitude]
   end
 end
