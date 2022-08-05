@@ -60,10 +60,7 @@ Rails.application.routes.draw do
     resources :comments
   end
   get 'about', to: 'pages#about'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ('/')
-  # root 'articles#index'
   root 'posts#index'
 
   get 'users/:user_id/locations/delete/:id', to: 'locations#destroy', via: :delete, as: :destroy_address
@@ -75,4 +72,5 @@ Rails.application.routes.draw do
   get 'users/mobile_phone', to: 'mobiles#new'
   post 'users/mobile_phone', to: 'mobiles#create'
   get 'users/:user_id/mobile_phone/delete/:id', to: 'mobiles#destroy', via: :delete, as: :destroy_mobile
+
 end
