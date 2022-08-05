@@ -1,6 +1,6 @@
 class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
-  
+
   def create
     payload = request.body.read
     signature_header = request.env['HTTP_STRIPE_SIGNATURE']
@@ -20,16 +20,14 @@ class WebhooksController < ApplicationController
     case event.type
 
     when 'checkout.session.completed'
-      return if !User.exists?(event.data.object.client_reference_id)
+      return unless User.exists?(event.data.object.client_reference_id)
 
       fullfill_order(event.data.object)
     when 'checkout.session.async_payment_succeeded'
 
     when 'invoice.payment_succeeded'
-      # return if subscription id isn't present on the invoice
       return unless event.data.object.subscription.present?
-      # continue to provision subscription when payment is made
-      # store the status on local subscription
+
       stripe_subscription = Stripe::Subscription.retrieve(event.data.object.subscription)
 
       subscription = Subscription.find_by(subscription_id: stripe_subscription)
@@ -48,10 +46,7 @@ class WebhooksController < ApplicationController
       # Notify customer and send them to the customer portal
       user = User.find_by(stripe_id: event.data.object.customer)
 
-      if user.exists?
-        SubscriptionMailer.with(user: user).payment_failed.deliver_now
-      end
-
+      SubscriptionMailer.with(user: user).payment_failed.deliver_now if user.exists?
     when 'customer.subscription.updated'
       stripe_subscription = event.data.object
 
@@ -78,14 +73,9 @@ class WebhooksController < ApplicationController
   private
 
   def fullfill_order(checkout_session)
-    # Find the user and assign customer id from Stripe
     user = User.find(checkout_session.client_reference_id)
     user.update(stripe_id: checkout_session.customer)
-
-    # Retrieve new subscription via Stripe using subscription_id
     stripe_subscription = Stripe::Subscription.retrieve(checkout_session.subscription)
-
-    # Create a new subscription with stripe details and user details
     Subscription.create!(
       customer_id: stripe_subscription.customer,
       current_period_start: Time.at(stripe_subscription.current_period_start).to_datetime,

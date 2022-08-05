@@ -1,33 +1,33 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show edit update destroy]
-  # before_action :require_login
-  # before_action :admin, only: %i[show index]
 
-  # GET /categories or /categories.json
   def index
     @categories = Category.all
   end
 
-  # GET /categories/1 or /categories/1.json
   def show
     if current_user.nil?
-      @category_posts = @category.posts.where(approve: true, premium: false).includes(:user, :rich_text_body).paginate(page: params[:page],per_page: 5)
+      @category_posts = @category.posts.where(approve: true, premium: false)
+                                 .includes(:user, :rich_text_body)
+                                 .paginate(page: params[:page], per_page: 5)
     elsif current_user.subscribed?
-      @category_posts = @category.posts.where(approve: true).includes(:user, :rich_text_body)..order(views: :desc).paginate(page: params[:page], per_page: 5)
+      @category_posts = @category.posts.where(approve: true)
+                                 .includes(:user, :rich_text_body)
+                                 .order(views: :desc)
+                                 .paginate(page: params[:page], per_page: 5)
     else
-      @category_posts = @category.posts.where(approve: true, premium: false).includes(:user, :rich_text_body).paginate(page: params[:page],per_page: 5)
+      @category_posts = @category.posts.where(approve: true, premium: false)
+                                 .includes(:user, :rich_text_body)
+                                 .paginate(page: params[:page], per_page: 5)
     end
   end
 
-  # GET /categories/new
   def new
     @category = Category.new
   end
 
-  # GET /categories/1/edit
   def edit; end
 
-  # POST /categories or /categories.json
   def create
     @category = Category.new(category_params)
     respond_to do |format|
@@ -41,7 +41,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /categories/1 or /categories/1.json
   def update
     respond_to do |format|
       if @category.update(category_params)
@@ -54,7 +53,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # DELETE /categories/1 or /categories/1.json
   def destroy
     @category.destroy
 
@@ -66,12 +64,10 @@ class CategoriesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_category
     @category = Category.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def category_params
     params.require(:category).permit(:name, :display_in_nav)
   end

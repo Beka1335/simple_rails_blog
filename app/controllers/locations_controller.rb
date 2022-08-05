@@ -1,27 +1,21 @@
 class LocationsController < ApplicationController
   before_action :authenticate_user!
 
-  # GET /locations or /locations.json
   def index
     @user = User.find_by(id: params[:user_id])
     @locations = @user.locations
   end
 
-  # GET /locations/1 or /locations/1.json
   def show
     @location = Location.find_by(id: params[:id])
   end
 
-  # GET /locations/new
   def new
-    @location = Location.new()
+    @location = Location.new
   end
 
-  # GET /locations/1/edit
-  def edit
-  end
+  def edit; end
 
-  # POST /locations or /locations.json
   def create
     @location = current_user.locations.new(locations_params)
     locations_cordinates = place_cordinates
@@ -31,13 +25,11 @@ class LocationsController < ApplicationController
       @location.save
       redirect_to edit_user_registration_path
     else
-      flash[:alert] = "#{locations_cordinates}"
+      flash[:alert] = locations_cordinates.to_s
       render :new
     end
   end
 
-
-  # DELETE /locations/1 or /locations/1.json
   def destroy
     @location = Location.find_by(id: params[:id])
     @location.destroy
@@ -45,7 +37,6 @@ class LocationsController < ApplicationController
   end
 
   private
-
 
   def locations_params
     params.require(:location).permit(:street, :city, :state, :country)

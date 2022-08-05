@@ -83,7 +83,7 @@ gem 'friendly_id', '~> 5.4'
 
 gem 'bullet', '~> 7.0'
 
-gem 'activerecord-import', "~> 1.4"
+gem 'activerecord-import', '~> 1.4'
 
 gem 'will_paginate', '~> 3.3'
 
@@ -93,7 +93,7 @@ gem 'carrierwave', '~> 2.0'
 
 gem 'stripe'
 
-gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 
 gem 'geocoder', '~> 1.8'
 

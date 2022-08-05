@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# this is the base controller for all controllers
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :set_notifications, if: :current_user

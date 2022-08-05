@@ -2,7 +2,6 @@ class AdminController < ApplicationController
   def index; end
 
   def posts
-
     @posts = Post.all.includes(:user)
     @t = Post.includes(:user).ransack(params[:q])
     @posts = @t.result.page(params[:page]).per_page(15)
@@ -36,8 +35,6 @@ class AdminController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    if @user.destroy
-      redirect_to root_url, notice: 'User deleted.'
-    end
+    redirect_to root_url, notice: 'User deleted.' if @user.destroy
   end
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class TurboFailureApp < Devise::FailureApp
   def respond
@@ -9,12 +10,11 @@ class TurboFailureApp < Devise::FailureApp
   end
 
   def skip_format?
-    %w(html turbo_stream */*).include? request_format.to_s
+    %w[html turbo_stream */*].include? request_format.to_s
   end
 end
 
 Devise.setup do |config|
-
   config.parent_controller = 'TurboDeviseController'
 
   config.navigational_formats = ['*/*', :html, :turbo_stream]

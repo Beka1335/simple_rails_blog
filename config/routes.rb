@@ -71,7 +71,6 @@ Rails.application.routes.draw do
   get '/users/:user_id/locations/all', to: 'locations#index', as: :locations
   get '/users/locations/show/:id', to: 'locations#show', as: :show_location
 
-
   get 'users/mobile_phone', to: 'mobiles#new'
   post 'users/mobile_phone', to: 'mobiles#create'
   get 'users/:user_id/mobile_phone/delete/:id', to: 'mobiles#destroy', via: :delete, as: :destroy_mobile
