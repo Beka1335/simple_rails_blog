@@ -34,7 +34,8 @@ Rails.application.routes.draw do
   # end
   devise_for :users, controllers: {
     sessions: 'users/sessions',
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
   get '/u/:id', to: 'users#profile', as: 'user'
   get '/uneproved_posts/:id', to: 'users#uneproved_posts', as: 'user_uneproved_posts'

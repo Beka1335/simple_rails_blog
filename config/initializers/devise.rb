@@ -20,6 +20,9 @@ Devise.setup do |config|
   config.navigational_formats = ['*/*', :html, :turbo_stream]
 
   config.mailer_sender = 'tester'
+  config.omniauth :google_oauth2,
+                                  Rails.application.credentials[:google_oauth_client_id],
+                                  Rails.application.credentials[:google_oauth_client_secret]
 
   require 'devise/orm/active_record'
 

@@ -75,6 +75,11 @@ end
 
 gem 'devise', git: 'https://github.com/heartcombo/devise.git'
 
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
+gem "oauth2", "~> 1.4"
+
 gem 'noticed', '~> 1.5'
 
 gem 'ransack', '~> 3.2'
