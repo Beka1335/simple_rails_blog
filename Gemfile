@@ -30,7 +30,6 @@ gem 'stimulus-rails'
 gem 'jbuilder'
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -75,10 +74,10 @@ end
 
 gem 'devise', git: 'https://github.com/heartcombo/devise.git'
 
+gem 'oauth2', '~> 1.4'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
-gem "oauth2", "~> 1.4"
 
 gem 'noticed', '~> 1.5'
 
@@ -103,3 +102,5 @@ gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 gem 'geocoder', '~> 1.8'
 
 gem 'telephone_number'
+
+gem 'rails_12factor'

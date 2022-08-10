@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
   resources :categories
   authenticated :user, ->(user) { user.admin? } do
@@ -29,9 +27,10 @@ Rails.application.routes.draw do
   get 'users/profile'
   get 'users/uneproved_posts'
 
-  # devise_scope :user do
-  #   post 'users/sign_up', to: 'devise/registrations#create'
-  # end
+  devise_scope :user do
+    get 'users', to: 'devise/registrations#new'
+  end
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
@@ -72,5 +71,4 @@ Rails.application.routes.draw do
   get 'users/mobile_phone', to: 'mobiles#new'
   post 'users/mobile_phone', to: 'mobiles#create'
   get 'users/:user_id/mobile_phone/delete/:id', to: 'mobiles#destroy', via: :delete, as: :destroy_mobile
-
 end
